@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTile : MonoBehaviour
+public class MapEntity : MonoBehaviour
 {
 	private new PolygonCollider2D collider;
 	private SpriteRenderer spriteRenderer;
@@ -18,23 +17,30 @@ public class MapTile : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
-	public void SetupTile(int[] coordinates, int height, Sprite sprite, MapDisplayManager manager)
+	public void SetupEntity(int x, int y, int height, MapDisplayManager manager)
 	{
-		x = coordinates[0];
-		y = coordinates[1];
+		this.x = x;
+		this.y = y;
 		Height = height;
-		spriteRenderer.sprite = sprite;
-		collider.offset = new Vector2(0, (height - 1) * 0.25f);
+		SetPosition(x, y, height);
 		mapDisplayManager = manager;
 	}
 
-	private void OnMouseEnter()
+	private void SetPosition(int x, int y, int height)
 	{
-		spriteRenderer.color = Color.red;
+		float xPosition = x * 0.5f + y * -0.5f;
+		float yPosition = (x * 0.25f + y * 0.25f) + (height * 0.25f) + 0.25f;
+		float zPosition = (height + 1) * -1;
+		transform.position = new Vector3(xPosition, yPosition, zPosition );
+	}
+
+	protected virtual void OnMouseEnter()
+	{
+		spriteRenderer.color = Color.blue;
 		mapDisplayManager.HoverTile(x, y);
 	}
 
-	private void OnMouseExit()
+	protected void OnMouseExit()
 	{
 		spriteRenderer.color = Color.white;
 		mapDisplayManager.UnHoverTile();

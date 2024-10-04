@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 public class MapDisplayManager : MonoBehaviour
 {
+	[SerializeField] private TileAtlas tileAtlas;
+
     [SerializeField] private int mapWidth, mapHeight;
 	[SerializeField] private int[,] mapHeights;
 	[SerializeField] private string[,] mapTypes;
 	[SerializeField] private GameObject tilePrefab;
 
-	[SerializedDictionary("Key", "Sprite")] [SerializeField]
-	private SerializedDictionary<string, Sprite> Atlas;
+	[SerializeField] private GameObject testUnit;
+	[SerializeField] private int testX, testY, testHeight;
 
 	private Tile[,] map;
 	[SerializeField] private TextMeshProUGUI tileLabel;
@@ -23,25 +25,27 @@ public class MapDisplayManager : MonoBehaviour
 
 	private void Awake()
 	{
-		mapHeights = new int[8, 8] { 
-			{ 0, 0, 0, 0, 0, 0, 0, 0 }, 
-			{ 0, 0, 0, 2, 2, 1, 0, 0 }, 
-			{ 0, 1, 1, 2, 2, 1, 0, 0 }, 
-			{ 0, 0, 1, 2, 1, 1, 0, 1 }, 
-			{ 2, 1, 1, 1, 1, 1, 1, 1 },
-			{ 2, 1, 1, 1, 1, 1, 0, 1 },
-			{ 1, 1, 0, 0, 1, 0, 0, 2 },
-			{ 1, 1, 0, 0, 0, 0, 1, 2 }
+		mapHeights = new int[9, 9] { 
+			{ 1, 1, 1, 1, 1, 1, 1, 1, 2 }, 
+			{ 1, 1, 1, 3, 3, 2, 1, 1, 1 }, 
+			{ 1, 2, 2, 3, 3, 2, 1, 1, 1 }, 
+			{ 1, 1, 2, 3, 2, 2, 1, 2, 2 }, 
+			{ 3, 2, 2, 2, 2, 2, 2, 2, 2 },
+			{ 3, 2, 2, 2, 2, 2, 1, 2, 2 },
+			{ 2, 2, 1, 1, 2, 1, 1, 3, 2 },
+			{ 2, 2, 1, 1, 1, 1, 2, 3, 3 },
+			{ 2, 1, 1, 1, 1, 1, 3, 3, 3 }
 		};
-		mapTypes = new string[8, 8] {
-			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Mud", "Mud", "ShallowWater" },
-			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Grass", "Mud", "ShallowWater" },
-			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Grass" , "ShallowWater", "ShallowWater" },
-			{ "Road", "Road", "Grass", "Grass", "Grass", "Grass", "DeepWater", "Grass" },
-			{ "Grass", "Road", "Road", "Road", "Road", "Road", "Bridge", "Road" },
-			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Grass", "DeepWater", "Grass" },
-			{ "Grass", "Grass", "Grass", "Grass", "Grass", "ShallowWater", "ShallowWater", "Grass" },
-			{ "Grass", "Grass", "Grass", "Grass", "Grass", "ShallowWater", "Grass", "Grass" }
+		mapTypes = new string[9, 9] {
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Mud", "Mud", "Shallow_Water", "Grass" },
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Grass", "Mud", "Shallow_Water", "Grass" },
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Grass" , "Shallow_Water", "Shallow_Water", "Grass" },
+			{ "Road", "Road", "Grass", "Grass", "Grass", "Grass", "Deep_Water", "Grass", "Grass" },
+			{ "Grass", "Road", "Road", "Road", "Road", "Road", "Bridge", "Road", "Road" },
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Grass", "Deep_Water", "Grass", "Grass" },
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Shallow_Water", "Shallow_Water", "Grass", "Grass" },
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Shallow_Water", "Grass", "Grass", "Grass" },
+			{ "Grass", "Grass", "Grass", "Grass", "Grass", "Shallow_Water", "Grass", "Grass", "Grass" }
 		};
 		GenerateMap(mapHeights, mapTypes);
 	}
@@ -49,34 +53,47 @@ public class MapDisplayManager : MonoBehaviour
 	private void GenerateMap(int[,] heights, string[,] types)
 	{
 		map = new Tile[mapWidth, mapHeight];
-		for(int x = 0; x < mapWidth; x++)
+		for (int x = 0; x < mapWidth; x++)
 		{
-			for( int y = 0; y < mapHeight; y++) 
+			for (int y = 0; y < mapHeight; y++)
 			{
-				Sprite sprite = Atlas[$"{types[x, y]}Height{heights[x, y] + 1}"];
+				Sprite sprite = tileAtlas.PullSprite(types[x, y], heights[x, y]);
 				float xOffset = x * 0.5f + y * -0.5f;
 				float yOffset = x * 0.25f + y * 0.25f;
 				GameObject tile = Instantiate(tilePrefab, new Vector3(xOffset, yOffset, 0), Quaternion.identity);
-				tile.GetComponent<MapTile>().SetupTile(new int[2] { x, y}, heights[x,y], sprite, this);
+				tile.GetComponent<MapTile>().SetupTile(new int[2] { x, y }, heights[x, y], sprite, this);
 				tile.name = $"Tile {x},{y}";
-				map[x, y] = new Tile(x, y, types[x,y], heights[x,y]+1);
+				map[x, y] = new Tile(x, y, types[x, y], heights[x, y]);
 			}
 		}
+		GameObject unit = Instantiate(testUnit);
+		unit.GetComponent<MapUnit>().SetupUnit(testX, testY, testHeight, this, "Unsullied Grenadier");
 	}
 
 	public void DisplayTileInfo(int x, int y)
 	{
 		string[] info = map[x, y].GetDisplayInformation();
-		tileLabel.text = info[0];
+		tileLabel.text = info[0].Replace('_', ' ');
 		tileDescr.text = $"Movement cost: {info[2]}";
-		tileHeightLabel.text = info[1];
-		if (info[0] != "Bridge")
-		{
-			tileImage.sprite = Atlas[$"{info[0]}Height1"];
-		} else
-		{
-			tileImage.sprite = Atlas["BridgeHeight2"];
-		}
-		//tileImage.SetNativeSize();
+		tileHeightLabel.text = $"Height: {info[1]}";
+		tileImage.sprite = tileAtlas.PullSprite(info[0]);
+	}
+
+	public void HoverTile(int x, int y)
+	{
+		DisplayTileInfo(x, y);
+	}
+
+	public void UnHoverTile()
+	{
+		if (selectedTile != null)
+			DisplayTileInfo(selectedTile[0], selectedTile[1]);
+	}
+
+	private int[] selectedTile;
+
+	public void SelectTile(int x, int y)
+	{
+		selectedTile = new int[2] { x, y };
 	}
 }

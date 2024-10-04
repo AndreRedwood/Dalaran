@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
-  m_SizeDelta: {x: 100, y: 40}
+  m_AnchoredPosition: {x: 100, y: -40}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128500510
 MonoBehaviour:
@@ -208,13 +208,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 153491604}
   - component: {fileID: 153491603}
   m_Layer: 5
-  m_Name: TypeDexcription
+  m_Name: DexcriptionLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,10 +291,10 @@ RectTransform:
   m_Father: {fileID: 279554027}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 30}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -120}
+  m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &153491603
 MonoBehaviour:
@@ -343,8 +343,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 279554029}
   - component: {fileID: 279554028}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: TileInformationPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,15 +493,15 @@ RectTransform:
   m_Children:
   - {fileID: 128500509}
   - {fileID: 153491602}
-  - {fileID: 1825528562}
   - {fileID: 474053362}
+  - {fileID: 1825528562}
   m_Father: {fileID: 484238958}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -90, y: -60}
-  m_SizeDelta: {x: 160, y: 100}
+  m_AnchoredPosition: {x: -200, y: -100}
+  m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &279554028
 MonoBehaviour:
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 474053364}
   - component: {fileID: 474053363}
   m_Layer: 5
-  m_Name: Elevation
+  m_Name: ElevationLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,10 +574,10 @@ RectTransform:
   m_Father: {fileID: 279554027}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -30, y: 20}
-  m_SizeDelta: {x: 60, y: 40}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 100, y: 20}
+  m_SizeDelta: {x: 200, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474053363
 MonoBehaviour:
@@ -626,8 +626,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -724,10 +724,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 32
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -881,6 +881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1278249833}
   - component: {fileID: 1278249832}
+  - component: {fileID: 1278249834}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -900,37 +901,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910b0b69a327ce549a18e17d7e331d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 8
-  mapHeight: 8
+  tileAtlas: {fileID: 1278249834}
+  mapWidth: 9
+  mapHeight: 9
   tilePrefab: {fileID: 3542076086308633913, guid: e12f53d6754af584d97d352b793ced59, type: 3}
-  Atlas:
-    _serializedList:
-    - Key: ShallowWaterHeight1
-      Value: {fileID: 21300000, guid: 79b2b4459e6ba26469674fe343bbe769, type: 3}
-    - Key: DeepWaterHeight1
-      Value: {fileID: 21300000, guid: fcc94354bfd98e44689a94932f63936d, type: 3}
-    - Key: GrassWetHeight1
-      Value: {fileID: 21300000, guid: f190ea598fa2a404f9f13400061dabc2, type: 3}
-    - Key: GrassWetHeight2
-      Value: {fileID: 21300000, guid: 864379d0163a3e644ac4a0feef3e776b, type: 3}
-    - Key: GrassWetHeight3
-      Value: {fileID: 21300000, guid: 77b638b336f12694e8d5a7f02cb15ada, type: 3}
-    - Key: BridgeHeight2
-      Value: {fileID: 21300000, guid: e332fdfa4b51bbf41b5f170659e44f34, type: 3}
-    - Key: GrassHeight1
-      Value: {fileID: 21300000, guid: 4d10eb145bddb604c9e8df5fb9bff5a2, type: 3}
-    - Key: GrassHeight2
-      Value: {fileID: 21300000, guid: 307683f3e3a31e649b423845159aec4e, type: 3}
-    - Key: GrassHeight3
-      Value: {fileID: 21300000, guid: 9692602bbec09ba46ac4b6622a48056e, type: 3}
-    - Key: MudHeight1
-      Value: {fileID: 21300000, guid: 3e46387800393804d9171fba2fb163a8, type: 3}
-    - Key: RoadHeight1
-      Value: {fileID: 21300000, guid: 5bec9326123ce0340abdc22966f6826f, type: 3}
-    - Key: RoadHeight2
-      Value: {fileID: 21300000, guid: 58c6581c031cb2c498970d07529e2c19, type: 3}
-    - Key: RoadHeight3
-      Value: {fileID: 21300000, guid: c1a4a63aca2c46647a6feb81fd652a05, type: 3}
+  testUnit: {fileID: 296807634008399302, guid: 00af1e1add08f9048b82c8f6a04ced1b, type: 3}
+  testX: 4
+  testY: 1
+  testHeight: 2
   tileLabel: {fileID: 128500510}
   tileDescr: {fileID: 153491603}
   tileHeightLabel: {fileID: 474053363}
@@ -950,6 +928,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1278249834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278249831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b7d7ad76125244494e6086edb813bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atlas:
+    _serializedList:
+    - Key: 
+      Value: {fileID: 0}
+    - Key: Grass_H_1
+      Value: {fileID: 21300000, guid: 4d10eb145bddb604c9e8df5fb9bff5a2, type: 3}
+    - Key: Grass_H_2
+      Value: {fileID: 21300000, guid: 307683f3e3a31e649b423845159aec4e, type: 3}
+    - Key: Grass_H_3
+      Value: {fileID: 21300000, guid: 9692602bbec09ba46ac4b6622a48056e, type: 3}
+    - Key: Shallow_Water_H_1
+      Value: {fileID: 21300000, guid: 79b2b4459e6ba26469674fe343bbe769, type: 3}
+    - Key: Deep_Water_H_1
+      Value: {fileID: 21300000, guid: fcc94354bfd98e44689a94932f63936d, type: 3}
+    - Key: Mud_H_1
+      Value: {fileID: 21300000, guid: 3e46387800393804d9171fba2fb163a8, type: 3}
+    - Key: Road_H_1
+      Value: {fileID: 21300000, guid: 5bec9326123ce0340abdc22966f6826f, type: 3}
+    - Key: Road_H_2
+      Value: {fileID: 21300000, guid: 58c6581c031cb2c498970d07529e2c19, type: 3}
+    - Key: Road_H_3
+      Value: {fileID: 21300000, guid: c1a4a63aca2c46647a6feb81fd652a05, type: 3}
+    - Key: Bridge_H_1
+      Value: {fileID: 21300000, guid: 6f0a86ad972e87340931956c11ddc727, type: 3}
+    - Key: Bridge_H_2
+      Value: {fileID: 21300000, guid: e332fdfa4b51bbf41b5f170659e44f34, type: 3}
 --- !u!1 &1825528561
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +978,7 @@ GameObject:
   - component: {fileID: 1825528564}
   - component: {fileID: 1825528563}
   m_Layer: 5
-  m_Name: TypeImage
+  m_Name: TileImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -985,8 +1001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: -100, y: -100}
+  m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1825528563
 MonoBehaviour:
@@ -1008,7 +1024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6f0a86ad972e87340931956c11ddc727, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
