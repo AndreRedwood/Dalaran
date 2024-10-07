@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapDisplayManager : MonoBehaviour
+public class BattleDisplayManager : MonoBehaviour
 {
 	[SerializeField] private TileAtlas tileAtlas;
 
@@ -18,10 +18,17 @@ public class MapDisplayManager : MonoBehaviour
 	[SerializeField] private int testX, testY, testHeight;
 
 	private Tile[,] map;
+	private Unit unsullied;
 	[SerializeField] private TextMeshProUGUI tileLabel;
 	[SerializeField] private TextMeshProUGUI tileDescr;
 	[SerializeField] private TextMeshProUGUI tileHeightLabel;
 	[SerializeField] private Image tileImage;
+
+	[SerializeField] private GameObject unitPanel;
+	[SerializeField] private TextMeshProUGUI unitLabel;
+	[SerializeField] private TextMeshProUGUI unitDescr;
+	[SerializeField] private Image unitImage;
+	[SerializeField] private Sprite unitSprite;
 
 	private void Awake()
 	{
@@ -60,14 +67,16 @@ public class MapDisplayManager : MonoBehaviour
 				Sprite sprite = tileAtlas.PullSprite(types[x, y], heights[x, y]);
 				float xOffset = x * 0.5f + y * -0.5f;
 				float yOffset = x * 0.25f + y * 0.25f;
-				GameObject tile = Instantiate(tilePrefab, new Vector3(xOffset, yOffset, 0), Quaternion.identity);
-				tile.GetComponent<MapTile>().SetupTile(new int[2] { x, y }, heights[x, y], sprite, this);
+				GameObject tile = Instantiate(tilePrefab);
+				tile.GetComponent<MapTile>().SetupTile( x, y, heights[x, y], sprite, this);
 				tile.name = $"Tile {x},{y}";
 				map[x, y] = new Tile(x, y, types[x, y], heights[x, y]);
 			}
 		}
 		GameObject unit = Instantiate(testUnit);
 		unit.GetComponent<MapUnit>().SetupUnit(testX, testY, testHeight, this, "Unsullied Grenadier");
+		unsullied = new Unit( "Unsullied Grenadier", "Heavy", new string[] { "Axe", "Blunderbuss" } );
+		unsullied.SetPosition(testX, testY);
 	}
 
 	public void DisplayTileInfo(int x, int y)
@@ -77,6 +86,21 @@ public class MapDisplayManager : MonoBehaviour
 		tileDescr.text = $"Movement cost: {info[2]}";
 		tileHeightLabel.text = $"Height: {info[1]}";
 		tileImage.sprite = tileAtlas.PullSprite(info[0]);
+	}
+
+	public void DisplayUnitInfo()
+	{
+		Unit unit = unsullied; //throw out to argument
+		unitLabel.text = unit.Name;
+		unitDescr.text = "Placeholder";
+		unitImage.sprite = unitSprite;
+		unitPanel.gameObject.SetActive(true);
+		//DisplayTileInfo(unit.x, unit.y);
+	}
+
+	public void UnHoverUnit()
+	{
+		unitPanel.gameObject.SetActive(false);
 	}
 
 	public void HoverTile(int x, int y)

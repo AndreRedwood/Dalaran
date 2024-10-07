@@ -7,20 +7,22 @@ public class MapUnit : MapEntity
 {
 	private string unitName;
 
-	public void SetupUnit(int x, int y, int height, MapDisplayManager manager, string name)
+	public void SetupUnit(int x, int y, int height, BattleDisplayManager manager, string name)
 	{
 		SetupEntity(x, y, height, manager);
+		SetPosition(x, y, height);
 		unitName = name;
 	}
 
 	protected override void OnMouseEnter()
 	{
 		base.OnMouseEnter();
-		Debug.Log(unitName);
+		battleDisplayManager.DisplayUnitInfo();
 	}
 
-    public void DisplayUnit()
+	protected override void OnMouseExit()
 	{
-		//
+		base.OnMouseExit();
+		battleDisplayManager.UnHoverUnit();
 	}
 }

@@ -3,40 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTile : MonoBehaviour
+public class MapTile : MapEntity
 {
-	private new PolygonCollider2D collider;
-	private SpriteRenderer spriteRenderer;
-	private int x, y;
-	public int Height { private set; get; }
-
-	private MapDisplayManager mapDisplayManager;
-
-	private void Awake()
+	public void SetupTile(int x, int y, int height, Sprite sprite, BattleDisplayManager manager)
 	{
-		collider = GetComponent<PolygonCollider2D>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
-	}
-
-	public void SetupTile(int[] coordinates, int height, Sprite sprite, MapDisplayManager manager)
-	{
-		x = coordinates[0];
-		y = coordinates[1];
-		Height = height;
+		SetupEntity(x, y, height, manager);
+		SetPosition(x, y, height);
 		spriteRenderer.sprite = sprite;
 		collider.offset = new Vector2(0, (height - 1) * 0.25f);
-		mapDisplayManager = manager;
 	}
 
-	private void OnMouseEnter()
+	protected override void SetPosition(int x, int y, int height)
+	{
+		float xPosition = x * 0.5f + y * -0.5f;
+		float yPosition = x * 0.25f + y * 0.25f;
+		transform.position = new Vector3(xPosition, yPosition, 0);
+	}
+
+	protected override void OnMouseEnter()
 	{
 		spriteRenderer.color = Color.red;
-		mapDisplayManager.HoverTile(x, y);
+		battleDisplayManager.HoverTile(x, y);
 	}
 
-	private void OnMouseExit()
+	protected override void OnMouseExit()
 	{
 		spriteRenderer.color = Color.white;
-		mapDisplayManager.UnHoverTile();
+		battleDisplayManager.UnHoverTile();
 	}
 }
