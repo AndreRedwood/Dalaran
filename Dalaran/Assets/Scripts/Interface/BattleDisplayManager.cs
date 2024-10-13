@@ -2,6 +2,7 @@ using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,18 +18,37 @@ public class BattleDisplayManager : MonoBehaviour
 	[SerializeField] private GameObject testUnit;
 	[SerializeField] private int testX, testY, testHeight;
 
-	private Tile[,] map;
 	private Unit unsullied;
-	[SerializeField] private TextMeshProUGUI tileLabel;
-	[SerializeField] private TextMeshProUGUI tileDescr;
+
+	[Header("Left Panel")]
+	[SerializeField] private GameObject leftPanel;
+	[SerializeField] private TextMeshProUGUI unitNameLabel;
+	[SerializeField] private Image unitImage;
+	[SerializeField] private TextMeshProUGUI unitHealthLabel;
+	[SerializeField] private Slider unitHealthBar;
+	[SerializeField] private TextMeshProUGUI weaponLabel;
+	[SerializeField] private Image weaponImage;
+
+	[SerializeField] private Sprite unitSprite;
+
+	[Header("Central Panel")]
+	[SerializeField] private GameObject centralPanel;
+	[SerializeField] private Button attackButton;
+	[SerializeField] private TextMeshProUGUI attackCostLabel;
+	[SerializeField] private Button[] skillButtons;
+	[SerializeField] private TextMeshProUGUI[] skillCostLabels;
+	[SerializeField] private Button backpackButton;
+	[SerializeField] private Button spellsButton;
+	[SerializeField] private Slider actionPointsBar;
+	[SerializeField] private TextMeshProUGUI actionPointsLabel;
+
+	[Header("Right Panel")]
+	[SerializeField] private TextMeshProUGUI tileNameLabel;
+	[SerializeField] private TextMeshProUGUI tileMoveCostLabel;
 	[SerializeField] private TextMeshProUGUI tileHeightLabel;
 	[SerializeField] private Image tileImage;
-
-	[SerializeField] private GameObject unitPanel;
-	[SerializeField] private TextMeshProUGUI unitLabel;
-	[SerializeField] private TextMeshProUGUI unitDescr;
-	[SerializeField] private Image unitImage;
-	[SerializeField] private Sprite unitSprite;
+	[SerializeField] private TextMeshProUGUI tileDetailsLabel;
+	[SerializeField] private TextMeshProUGUI turnLabel;
 
 	private void Awake()
 	{
@@ -59,7 +79,7 @@ public class BattleDisplayManager : MonoBehaviour
 
 	private void GenerateMap(int[,] heights, string[,] types)
 	{
-		map = new Tile[mapWidth, mapHeight];
+		BattleManager.GetInstance().SetMap(heights, types);
 		for (int x = 0; x < mapWidth; x++)
 		{
 			for (int y = 0; y < mapHeight; y++)
@@ -70,20 +90,19 @@ public class BattleDisplayManager : MonoBehaviour
 				GameObject tile = Instantiate(tilePrefab);
 				tile.GetComponent<MapTile>().SetupTile( x, y, heights[x, y], sprite, this);
 				tile.name = $"Tile {x},{y}";
-				map[x, y] = new Tile(x, y, types[x, y], heights[x, y]);
 			}
 		}
 		GameObject unit = Instantiate(testUnit);
 		unit.GetComponent<MapUnit>().SetupUnit(testX, testY, testHeight, this, "Unsullied Grenadier");
-		unsullied = new Unit( "Unsullied Grenadier", "Heavy", new string[] { "Axe", "Blunderbuss" } );
+		unsullied = new Unit( "Unsullied Grenadier", 100, 10, "Heavy", 5, new int[] { 70, 110 }, new string[] { "Axe", "Blunderbuss" } );
 		unsullied.SetPosition(testX, testY);
 	}
 
 	public void DisplayTileInfo(int x, int y)
 	{
-		string[] info = map[x, y].GetDisplayInformation();
-		tileLabel.text = info[0].Replace('_', ' ');
-		tileDescr.text = $"Movement cost: {info[2]}";
+		string[] info = BattleManager.GetInstance().GetTile(x, y).GetDisplayInformation();
+		tileNameLabel.text = info[0].Replace('_', ' ');
+		tileMoveCostLabel.text = $"AP: {info[2]}";
 		tileHeightLabel.text = $"Height: {info[1]}";
 		tileImage.sprite = tileAtlas.PullSprite(info[0]);
 	}
@@ -91,16 +110,22 @@ public class BattleDisplayManager : MonoBehaviour
 	public void DisplayUnitInfo()
 	{
 		Unit unit = unsullied; //throw out to argument
-		unitLabel.text = unit.Name;
-		unitDescr.text = "Placeholder";
+		unitNameLabel.text = unit.Name;
 		unitImage.sprite = unitSprite;
-		unitPanel.gameObject.SetActive(true);
+		unitHealthLabel.text = unit.Health + "/" + unit.MaxHealth;
+		unitHealthBar.maxValue = unit.MaxHealth;
+		unitHealthBar.value = unit.Health;
+		leftPanel.gameObject.SetActive(true);
 		//DisplayTileInfo(unit.x, unit.y);
+		actionPointsLabel.text = unit.ActionPoints + "/8";
+		actionPointsBar.value = unit.ActionPoints;
+		centralPanel.gameObject.SetActive(true);
 	}
 
 	public void UnHoverUnit()
 	{
-		unitPanel.gameObject.SetActive(false);
+		leftPanel.gameObject.SetActive(false);
+		centralPanel.gameObject.SetActive(false);
 	}
 
 	public void HoverTile(int x, int y)
@@ -110,14 +135,6 @@ public class BattleDisplayManager : MonoBehaviour
 
 	public void UnHoverTile()
 	{
-		if (selectedTile != null)
-			DisplayTileInfo(selectedTile[0], selectedTile[1]);
-	}
-
-	private int[] selectedTile;
-
-	public void SelectTile(int x, int y)
-	{
-		selectedTile = new int[2] { x, y };
+		//
 	}
 }

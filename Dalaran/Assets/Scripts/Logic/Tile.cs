@@ -9,6 +9,9 @@ public class Tile
 	private string type;
 	private int movementCost;
 
+	private int dodgeModifier;
+	public int DodgeModifier { get { return dodgeModifier;} }
+
 	public Tile(int x, int y, string type, int height = 1)
 	{
 		this.x = x;
@@ -21,6 +24,12 @@ public class Tile
 			case "Shallow_Water": movementCost = 3; break;
 			case "Deep_Water": movementCost = 99; break;
 			default: movementCost = 2; break;
+		}
+		switch (type)
+		{
+			case "Mud":
+			case "Shallow_Water": dodgeModifier = -10; break;
+			default: dodgeModifier = 0; break;
 		}
 	}
 
