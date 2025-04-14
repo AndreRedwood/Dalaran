@@ -17,7 +17,8 @@ public class BattleUIManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
+		string[,] mapData = MapLoader.LoadMap("001");
+		Debug.Log(mapData[1, 2]);
     }
 
     // Update is called once per frame
