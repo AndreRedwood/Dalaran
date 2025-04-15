@@ -302,12 +302,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59ddd740bf82c843bb406dcbff0b541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileNameLabel: {fileID: 0}
-  tileMoveCostLabel: {fileID: 0}
-  tileHeightLabel: {fileID: 0}
-  tileImage: {fileID: 0}
-  tileDetailsLabel: {fileID: 0}
-  turnLabel: {fileID: 0}
+  tileColliderPrefab: {fileID: 7594920853187570488, guid: 9586fae8f9fa8c846a193591c95244c4, type: 3}
+  tileNameLabel: {fileID: 363526779}
+  tileMoveCostLabel: {fileID: 326410679}
+  tileHeightLabel: {fileID: 704748176}
+  tileImage: {fileID: 1674940021}
+  tileDetailsLabel: {fileID: 514212558}
+  turnLabel: {fileID: 1486633483}
 --- !u!1 &51170955
 GameObject:
   m_ObjectHideFlags: 0

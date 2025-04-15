@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class MapTile : MonoBehaviour
 {
-	[SerializeField]
-	private GameObject tileObject;
+	private BattleUIManager manager;
 	[SerializeField]
 	private int x, y;
 	[SerializeField]
 	private int tileHeight;
 
-    void Awake()
+    public void SetupTile(BattleUIManager manager, int x, int y, int height)
     {
-		transform.position = new Vector3(x, 0f, y);
-        tileObject = transform.GetChild(0).gameObject;
-		TilePositioner.PositionTile(tileObject.transform, tileHeight);
+		this.manager = manager;
+		this.x = x;
+		this.y = y;
+		tileHeight = height;
+		TilePositioner.PositionTile(transform, x, y);
+		TilePositioner.PositionCollider(GetComponent<BoxCollider>(), tileHeight);
     }
 
 	private void OnMouseEnter()
 	{
-		tileObject.GetComponent<MeshRenderer>().material.color = Color.red;
-	}
-
-	private void OnMouseExit()
-	{
-		tileObject.GetComponent<MeshRenderer>().material.color= Color.white;
+		manager.DisplayTile(x, y);
 	}
 }
