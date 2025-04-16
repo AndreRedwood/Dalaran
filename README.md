@@ -9,9 +9,10 @@ Gimp
 
 ## Roadmap
 - [X] Map
-  - [ ] Rework to 3d with pixel sprites
-  - [ ] Support for custom hand-made maps
-- [X] Unit
+  - [X] Rework to 3d with pixel sprites
+  - [X] Support for custom hand-made maps
+  - [ ] Improving map visuals
+- [ ] Unit / Character
 - [X] Basic UI
 - [ ] Unit Control
   - [ ] Movement
