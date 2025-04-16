@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42930608}
   - component: {fileID: 42930609}
+  - component: {fileID: 42930610}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -303,12 +304,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileColliderPrefab: {fileID: 7594920853187570488, guid: 9586fae8f9fa8c846a193591c95244c4, type: 3}
+  tileHoverPrefab: {fileID: 4657788988704570550, guid: 069271d628ee7ed4b86be04b6e11624f, type: 3}
+  tileHover: {fileID: 0}
   tileNameLabel: {fileID: 363526779}
   tileMoveCostLabel: {fileID: 326410679}
   tileHeightLabel: {fileID: 704748176}
   tileImage: {fileID: 1674940021}
   tileDetailsLabel: {fileID: 514212558}
   turnLabel: {fileID: 1486633483}
+  dictionaty:
+    _serializedList:
+    - Key: grass
+      Value: Grass
+    - Key: road
+      Value: Road
+    - Key: mud
+      Value: Mud
+    - Key: water_shallow
+      Value: Shallow Water
+--- !u!114 &42930610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42930607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b7d7ad76125244494e6086edb813bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atlas:
+    _serializedList:
+    - Key: grass
+      Value: {fileID: 21300000, guid: 4d10eb145bddb604c9e8df5fb9bff5a2, type: 3}
+    - Key: road
+      Value: {fileID: 21300000, guid: 5bec9326123ce0340abdc22966f6826f, type: 3}
+    - Key: mud
+      Value: {fileID: 21300000, guid: 3e46387800393804d9171fba2fb163a8, type: 3}
+    - Key: water_shallow
+      Value: {fileID: 21300000, guid: 79b2b4459e6ba26469674fe343bbe769, type: 3}
 --- !u!1 &51170955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,8 +2001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -140, y: -40}
-  m_SizeDelta: {x: 60, y: 20}
+  m_AnchoredPosition: {x: -140, y: -70}
+  m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &326410679
 MonoBehaviour:
@@ -2023,7 +2058,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2165,8 +2200,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -130}
-  m_SizeDelta: {x: 120, y: 20}
+  m_AnchoredPosition: {x: -140, y: -40}
+  m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &363526779
 MonoBehaviour:
@@ -2222,7 +2257,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5055,8 +5090,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -140, y: -70}
-  m_SizeDelta: {x: 60, y: 20}
+  m_AnchoredPosition: {x: -140, y: -100}
+  m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &704748176
 MonoBehaviour:
@@ -5112,7 +5147,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

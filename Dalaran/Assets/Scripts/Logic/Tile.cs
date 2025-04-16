@@ -6,6 +6,7 @@ public class Tile
 {
 	private int x, y;
 	private int height;
+	public int Height { get { return height; } }
 	private string type;
 	private int movementCost;
 

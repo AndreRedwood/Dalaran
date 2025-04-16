@@ -35,10 +35,10 @@ public sealed class BattleManager
 				string newTileType = newTileData;
 				switch (newTileType)
 				{
-					case "G": newTileType = "Grass"; break;
-					case "R": newTileType = "Road"; break;
-					case "B": newTileType = "Mud"; break;
-					case "W": newTileType = "Shallow_Water"; break;
+					case "G": newTileType = "grass"; break;
+					case "R": newTileType = "road"; break;
+					case "B": newTileType = "mud"; break;
+					case "W": newTileType = "water_shallow"; break;
 				}
 				map[x, y] = new Tile(x, y, newTileType, newTileHeight);
 			}

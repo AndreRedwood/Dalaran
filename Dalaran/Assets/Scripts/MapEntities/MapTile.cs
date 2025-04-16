@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapTile : MonoBehaviour
 {
+	[SerializeField]
 	private BattleUIManager manager;
 	[SerializeField]
 	private int x, y;

@@ -8,9 +8,8 @@ public class TileAtlas : MonoBehaviour
 	[SerializedDictionary("Key", "Sprite")] [SerializeField]
 	private SerializedDictionary<string, Sprite> atlas;
 
-	public Sprite PullSprite(string type, int height = 1)
+	public Sprite PullSprite(string type)
 	{
-		string key = type + "_H_" + height.ToString();
-		return atlas[key];
+		return atlas[type];
 	}
 }
