@@ -1,13 +1,17 @@
 using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
 {
-	private static BattleManager battleManager = BattleManager.GetInstance();
+	public static BattleManager battleManager = BattleManager.GetInstance();
+
+	[SerializeField]
+	private GameObject testEntity;
 
 	[SerializeField]
 	private GameObject tileColliderPrefab;
@@ -15,6 +19,10 @@ public class BattleUIManager : MonoBehaviour
 	private GameObject tileHoverPrefab;
 	[SerializeField]
 	private GameObject tileHover = null;
+	[SerializeField]
+	private GameObject tileGridPrefab;
+	[SerializeField]
+	private List<GameObject> moveGrid = new List<GameObject>();
 
 	[Header("Right Panel")]
 	[SerializeField] private TextMeshProUGUI tileNameLabel;
@@ -37,6 +45,7 @@ public class BattleUIManager : MonoBehaviour
 			}
 		}
 		battleManager.SetMap(mapData);
+		testEntity.GetComponent<MapEntity>().SetupEntity(this, 0, 4);
     }
 
     public void DisplayTile(int x, int y)
@@ -54,6 +63,19 @@ public class BattleUIManager : MonoBehaviour
 		Destroy(tileHover);
 		tileHover = Instantiate(tileHoverPrefab);
 		tileHover.transform.position = new Vector3(x, (height * 0.5f) + 0.01f, y);
+	}
+
+	public void DisplayUnitSelect(int x, int y)
+	{
+		CreateUnitHover(x, y, battleManager.GetTile(x, y).Height);
+	}
+
+	private void CreateUnitHover(int x, int y, int height)
+	{
+		foreach(GameObject hover in moveGrid)
+			Destroy(hover);
+		moveGrid = new List<GameObject> { Instantiate(tileGridPrefab) };
+		moveGrid[0].transform.position = new Vector3(x, (height * 0.5f) + 0.01f, y);
 	}
 
 	[Header("Language")]
