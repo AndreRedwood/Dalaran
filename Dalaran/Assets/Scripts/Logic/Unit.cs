@@ -1,16 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Unit
 {
 	private string name;
 	public string Name { get { return name; } }
 	private string unitClass;
 	public string UnitClass { get { return unitClass; } }
-	
-	public int x { private set; get; }
-	public int y { private set; get; }
+
+	[SerializeField] private Vector2Int position;
+	public Vector2Int Position { get { return position; } }
 
 	public int ActionPoints { private set;  get; }
 
@@ -23,12 +25,6 @@ public class Unit
 	public string ArmorClass { private set; get; }
 
 	private int dodge;
-	private int Dodge { 
-		get 
-		{ 
-			return dodge + BattleManager.GetInstance().GetTile(x, y).DodgeModifier;
-		} 
-	}
 	private int skillRanged;
 	private int SkillRanged { get { return skillRanged; } }
 	private int skillMelee;
@@ -51,10 +47,9 @@ public class Unit
 		ResetActionPoints();
 	}
 
-	public void SetPosition(int x, int y)
+	public void SetPosition(Vector2Int newPosition)
 	{
-		this.x = x; 
-		this.y = y;
+		position = newPosition;
 	}
 
 	public void ResetActionPoints()

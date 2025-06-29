@@ -26,6 +26,7 @@ public class MapEntity : MonoBehaviour
 	private void OnMouseDown()
 	{
 		Debug.Log("SELECT!");
+		manager.UnitSelect(new Vector2Int(x, y));
 		//Select unit and ignore its collider until unselected
 		//Display its name and some basic stats
 		//Generate movement grid from map <- function should be in unit, so it could modify move costs

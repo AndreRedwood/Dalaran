@@ -24,6 +24,11 @@ public class BattleUIManager : MonoBehaviour
 	[SerializeField]
 	private List<GameObject> moveGrid = new List<GameObject>();
 
+	[Header("Left Panel")]
+	[SerializeField] private TextMeshProUGUI selectedNameLabel;
+	[SerializeField] private Image selectedImage;
+	[SerializeField] private Slider selectedHealthBar;
+
 	[Header("Right Panel")]
 	[SerializeField] private TextMeshProUGUI tileNameLabel;
 	[SerializeField] private TextMeshProUGUI tileMoveCostLabel;
@@ -47,6 +52,7 @@ public class BattleUIManager : MonoBehaviour
 		battleManager.SetMap(mapData);
 		//here loading and creating unit from prefab
 		testEntity.GetComponent<MapEntity>().SetupEntity(this, 0, 4);
+		battleManager.SetUnits();
     }
 
     private void DisplayTile(Vector2Int position)
@@ -82,9 +88,9 @@ public class BattleUIManager : MonoBehaviour
 		//moveGrid[0].transform.position = new Vector3(position.x, (height * 0.5f) + 0.01f, position.y);
 	}
 
-	public void UnitUnhover()
+	public void UnitSelect(Vector2Int position)
 	{
-		//Destroy(tileHover);
+		selectedNameLabel.text = battleManager.GetUnit(position).Name;
 	}
 
 	[Header("Language")]

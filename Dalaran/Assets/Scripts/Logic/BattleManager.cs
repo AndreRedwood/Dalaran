@@ -37,8 +37,29 @@ public sealed class BattleManager
 		}
 	}
 
+	private List<Unit> units = new List<Unit>();
+
+	//temporary, to do actual setting up units
+	public void SetUnits()
+	{
+		units.Add(new Unit("Grenadier", 100, 17, "XX", 10, new int[] { 1, 2, }, new string[] { "", "" }));
+		units[0].SetPosition(new Vector2Int(0, 4));
+	}
+
 	public Tile GetTile(int x, int y)
 	{
 		return map[x, y];
+	}
+
+	public Unit GetUnit(Vector2Int position)
+	{
+		foreach (Unit unit in units) 
+		{
+			if(unit.Position == position)
+			{
+				return unit;
+			}
+		}
+		throw new System.ArgumentNullException($"No Unit on {position}");
 	}
 }

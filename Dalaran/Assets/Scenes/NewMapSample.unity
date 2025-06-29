@@ -309,6 +309,9 @@ MonoBehaviour:
   tileHover: {fileID: 0}
   tileGridPrefab: {fileID: 4657788988704570550, guid: fa570b51595d10843992beb210e003ca, type: 3}
   moveGrid: []
+  selectedNameLabel: {fileID: 1049753720}
+  selectedImage: {fileID: 1306920546}
+  selectedHealthBar: {fileID: 1304701587}
   tileNameLabel: {fileID: 363526779}
   tileMoveCostLabel: {fileID: 326410679}
   tileHeightLabel: {fileID: 704748176}
