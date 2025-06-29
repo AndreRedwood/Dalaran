@@ -45,37 +45,46 @@ public class BattleUIManager : MonoBehaviour
 			}
 		}
 		battleManager.SetMap(mapData);
+		//here loading and creating unit from prefab
 		testEntity.GetComponent<MapEntity>().SetupEntity(this, 0, 4);
     }
 
-    public void DisplayTile(int x, int y)
+    private void DisplayTile(Vector2Int position)
     {
-		string[] tileInfo = battleManager.GetTile(x, y).GetDisplayInformation();
+		string[] tileInfo = battleManager.GetTile(position.x, position.y).GetDisplayInformation();
 		tileNameLabel.text = dictionaty[tileInfo[0]];
 		tileImage.sprite = GetComponent<TileAtlas>().PullSprite(tileInfo[0]);
 		tileHeightLabel.text = $"Height: {tileInfo[1]}";
 		tileMoveCostLabel.text = $"Move Cost: {tileInfo[2]}";
-		CreateTileHover(x, y, battleManager.GetTile(x, y).Height);
     }
 
-	private void CreateTileHover(int x, int y, int height)
+	public void TileHover(Vector2Int position)
 	{
+		int height = battleManager.GetTile(position.x, position.y).Height;
 		Destroy(tileHover);
 		tileHover = Instantiate(tileHoverPrefab);
-		tileHover.transform.position = new Vector3(x, (height * 0.5f) + 0.01f, y);
+		tileHover.transform.position = new Vector3(position.x, (height * 0.5f) + 0.01f, position.y);
+		DisplayTile(position);
 	}
 
-	public void DisplayUnitSelect(int x, int y)
+	public void UnitHover(Vector2Int position)
 	{
-		CreateUnitHover(x, y, battleManager.GetTile(x, y).Height);
+		int height = battleManager.GetTile(position.x, position.y).Height;
+		Destroy(tileHover);
+		tileHover = Instantiate(tileGridPrefab);
+		tileHover.transform.position = new Vector3(position.x, (height * 0.5f) + 0.01f, position.y);
+		DisplayTile(position);
+
+		//foreach (GameObject hover in moveGrid)
+		//Destroy(hover);
+		//why? mve to actual selection
+		//moveGrid = new List<GameObject> { Instantiate(tileGridPrefab) };
+		//moveGrid[0].transform.position = new Vector3(position.x, (height * 0.5f) + 0.01f, position.y);
 	}
 
-	private void CreateUnitHover(int x, int y, int height)
+	public void UnitUnhover()
 	{
-		foreach(GameObject hover in moveGrid)
-			Destroy(hover);
-		moveGrid = new List<GameObject> { Instantiate(tileGridPrefab) };
-		moveGrid[0].transform.position = new Vector3(x, (height * 0.5f) + 0.01f, y);
+		//Destroy(tileHover);
 	}
 
 	[Header("Language")]

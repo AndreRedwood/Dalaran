@@ -20,6 +20,15 @@ public class MapEntity : MonoBehaviour
 
 	private void OnMouseEnter()
 	{
-		manager.DisplayUnitSelect(x, y);
+		manager.UnitHover(new Vector2Int(x, y));
+	}
+
+	private void OnMouseDown()
+	{
+		Debug.Log("SELECT!");
+		//Select unit and ignore its collider until unselected
+		//Display its name and some basic stats
+		//Generate movement grid from map <- function should be in unit, so it could modify move costs
+		//Move speed and check how many tiles it moved and if it can move again
 	}
 }

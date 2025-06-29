@@ -23,6 +23,6 @@ public class MapTile : MonoBehaviour
 
 	private void OnMouseEnter()
 	{
-		manager.DisplayTile(x, y);
+		manager.TileHover(new Vector2Int(x, y));
 	}
 }

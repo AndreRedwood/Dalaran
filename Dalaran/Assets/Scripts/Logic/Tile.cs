@@ -2,40 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TerrainType
+{
+	grass,
+	road,
+	mud,
+	shallow_water,
+	deep_water
+}
+
+
 public class Tile
 {
 	private int x, y;
 	private int height;
 	public int Height { get { return height; } }
-	private string type;
-	private int movementCost;
+	private string typeID;
+	public int MoveCost { get { return TerrainAtlas.GetMovementCost(typeID); } }
+	public string Type { get { return TerrainAtlas.GetTerrainName(typeID); } }
 
 	private int dodgeModifier;
 	public int DodgeModifier { get { return dodgeModifier;} }
 
+	//probably rework Type into prefab template for greater control
 	public Tile(int x, int y, string type, int height = 1)
 	{
 		this.x = x;
 		this.y = y;
-		this.type = type;
+		typeID = type;
 		this.height = height;
-		switch(type)
-		{
-			case "Mud":
-			case "Shallow_Water": movementCost = 3; break;
-			case "Deep_Water": movementCost = 99; break;
-			default: movementCost = 2; break;
-		}
-		switch (type)
-		{
-			case "Mud":
-			case "Shallow_Water": dodgeModifier = -10; break;
-			default: dodgeModifier = 0; break;
-		}
 	}
 
 	public string[] GetDisplayInformation()
 	{
-		return new string[] { type, height.ToString(), movementCost.ToString() };
+		return new string[] { TerrainAtlas.GetTerrainName(typeID), height.ToString(), MoveCost.ToString() };
 	}
 }
