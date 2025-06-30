@@ -4,56 +4,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Unit
+public class Unit : MapEntity
 {
-	private string name;
-	public string Name { get { return name; } }
-	private string unitClass;
-	public string UnitClass { get { return unitClass; } }
+	[SerializeField]
+	private string unitName;
+	public string Name { get { return unitName; } }
 
-	[SerializeField] private Vector2Int position;
-	public Vector2Int Position { get { return position; } }
+	[SerializeField]
+	private int[] health = new int[2];
+	public int Health { get { return health[0]; } }
+	public int MaxHealth { get { return health[1]; } }
 
-	public int ActionPoints { private set;  get; }
+	[SerializeField]
+	private int[] guard = new int[2];
+	public int Guard { get { return guard[0]; } }
+	public int MaxGuard { get { return guard[1]; } }
 
-	public int Health { private set; get; }
-	private int maxHealth;
-	public int MaxHealth { get { return maxHealth; } }
-
+	[SerializeField]
 	private int armor;
 	public int Armor { get {  return armor; } }
-	public string ArmorClass { private set; get; }
 
-	private int dodge;
-	private int skillRanged;
-	private int SkillRanged { get { return skillRanged; } }
-	private int skillMelee;
-	public int SkillMelee { get { return skillMelee; } }
+	[SerializeField]
+	private int[] movement = new int[2];
+	public int Movement { get { return movement[0]; } }
+	public int MaxMovement { get { return movement[1]; } }
 
-	private string[] weapons;
-	public string[] Weapons { get {  return weapons; } }
-
-	public Unit(string name, int health, int armor, string armorClass, int dodge, int[] skill, string[] weapons)
+	public void SetupUnit(BattleUIManager manager, string name, int health, int guard, int armor, int movement, Vector2Int position)
 	{
-		this.name = name;
-		maxHealth =  health;
-		Health = health;
+		SetupEntity(manager, position);
+		unitName = name;
+		this.health[0] = this.health[1] = health;
+		this.guard[0] = this.guard[1] = guard;
 		this.armor = armor;
-		ArmorClass = armorClass;
-		this.dodge = dodge;
-		skillRanged = skill[0];
-		skillMelee = skill[1];
-		this.weapons = weapons;
-		ResetActionPoints();
-	}
-
-	public void SetPosition(Vector2Int newPosition)
-	{
-		position = newPosition;
-	}
-
-	public void ResetActionPoints()
-	{
-		ActionPoints = 8;
+		this.movement[0] = this.movement[1] = movement;
 	}
 }

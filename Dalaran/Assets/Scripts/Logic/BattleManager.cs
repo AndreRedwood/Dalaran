@@ -6,7 +6,7 @@ public sealed class BattleManager
 {
     private BattleManager () { }
 
-	private static BattleManager instance;
+	private static BattleManager instance = null;
 
 	public static BattleManager GetInstance()
 	{
@@ -17,14 +17,21 @@ public sealed class BattleManager
 		return instance;
 	}
 
-	private Tile[,] map;
+	private BattleUIManager managerUI;
+
+	private MapTile[,] map;
+	//merge to MapTile
+	//private Tile[,] map;
 
 	public void SetMap(string[,] mapData)
 	{
+		managerUI = BattleUIManager.Instance;
+
 		int mapWidth = mapData.GetLength(0);
 		int mapHeight = mapData.GetLength(1);
 
-		map = new Tile[mapWidth, mapHeight];
+		map = new MapTile[mapWidth, mapHeight];
+		Debug.Log(managerUI.gameObject.name); //
 		for (int x = 0; x < mapWidth; x++)
 		{
 			for (int y = 0; y < mapHeight; y++)
@@ -32,7 +39,8 @@ public sealed class BattleManager
 				string newTileData = mapData[x, y];
 				int newTileHeight = (int)char.GetNumericValue(newTileData[0]);
 				newTileData = newTileData.Remove(0, 1);
-				map[x, y] = new Tile(x, y, newTileData, newTileHeight);
+				map[x, y] = GameObject.Instantiate(managerUI.tileColliderPrefab).GetComponent<MapTile>();
+				map[x, y].SetupTile(new Vector2Int(x, y), newTileData, newTileHeight);
 			}
 		}
 	}
@@ -40,15 +48,20 @@ public sealed class BattleManager
 	private List<Unit> units = new List<Unit>();
 
 	//temporary, to do actual setting up units
-	public void SetUnits()
+	public void SetUnits(Unit testUnit)
 	{
-		units.Add(new Unit("Grenadier", 100, 17, "XX", 10, new int[] { 1, 2, }, new string[] { "", "" }));
+		units.Add(testUnit);
 		units[0].SetPosition(new Vector2Int(0, 4));
 	}
 
-	public Tile GetTile(int x, int y)
+	public MapTile GetMapTile(Vector2Int position)
 	{
-		return map[x, y];
+		return map[position.x, position.y];
+	}
+
+	public Tile GetTile(Vector2Int position)
+	{
+		return map[position.x, position.y].TileData;
 	}
 
 	public Unit GetUnit(Vector2Int position)

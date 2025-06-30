@@ -5,28 +5,40 @@ using UnityEngine;
 public class MapEntity : MonoBehaviour
 {
 	[SerializeField]
-	private BattleUIManager manager;
+	protected BattleUIManager manager;
 	[SerializeField]
-	private int x, y;
+	protected Vector2Int position;
+	public Vector2Int Position { get { return position; } }
 
-	public void SetupEntity(BattleUIManager manager, int x, int y)
+	public void SetupEntity(BattleUIManager manager, Vector2Int position)
 	{
 		this.manager = manager;
-		this.x = x;
-		this.y = y;
-		int height = BattleManager.GetInstance().GetTile(x, y).Height;
-		EntityPositioner.PositionEntity(transform, x, y, height);
+		this.position = position;
+		SetPosition(position);
 	}
 
-	private void OnMouseEnter()
+	public void SetPosition(Vector2Int newPosition)
 	{
-		manager.UnitHover(new Vector2Int(x, y));
+		position = newPosition;
+		int height = BattleManager.GetInstance().GetTile(Position).Height;
+		EntityPositioner.PositionEntity(transform, position.x, position.y, height);
+	}
+
+	//move to unit
+	protected virtual void OnMouseEnter()
+	{
+		manager.UnitHover(position);
+	}
+
+	protected virtual void OnMouseExit()
+	{
+		manager.UnitUnhover();
 	}
 
 	private void OnMouseDown()
 	{
 		Debug.Log("SELECT!");
-		manager.UnitSelect(new Vector2Int(x, y));
+		manager.UnitSelect(position);
 		//Select unit and ignore its collider until unselected
 		//Display its name and some basic stats
 		//Generate movement grid from map <- function should be in unit, so it could modify move costs

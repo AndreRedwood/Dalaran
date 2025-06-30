@@ -308,7 +308,7 @@ MonoBehaviour:
   tileHoverPrefab: {fileID: 4657788988704570550, guid: 069271d628ee7ed4b86be04b6e11624f, type: 3}
   tileHover: {fileID: 0}
   tileGridPrefab: {fileID: 4657788988704570550, guid: fa570b51595d10843992beb210e003ca, type: 3}
-  moveGrid: []
+  hoverGrid: []
   selectedNameLabel: {fileID: 1049753720}
   selectedImage: {fileID: 1306920546}
   selectedHealthBar: {fileID: 1304701587}
@@ -11363,12 +11363,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1895505807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 628f2b7fdb75ab14894895f40e31ab78, type: 3}
+  m_Script: {fileID: 11500000, guid: 25742e7682334534cbf7fff0ed109c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  x: 0
-  y: 0
+  position: {x: 0, y: 0}
+  unitName: 
+  health: 0000000000000000
+  guard: 0000000000000000
+  armor: 0
+  movement: 0000000000000000
 --- !u!1 &1907848654
 GameObject:
   m_ObjectHideFlags: 0
