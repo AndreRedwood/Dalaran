@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public sealed class BattleManager
 {
@@ -46,6 +48,8 @@ public sealed class BattleManager
 	}
 
 	private List<Unit> units = new List<Unit>();
+	private Unit selectedUnit = null;
+	public Unit SelectedUnit { get { return selectedUnit; } }
 
 	//temporary, to do actual setting up units
 	public void SetUnits(Unit testUnit)
@@ -64,6 +68,15 @@ public sealed class BattleManager
 		return map[position.x, position.y].TileData;
 	}
 
+	public bool IsTileEmpty(Vector2Int position)
+	{
+		if(units.Any(i=>i.Position == position))
+		{
+			return false;
+		}
+		return true;
+	}
+
 	public Unit GetUnit(Vector2Int position)
 	{
 		foreach (Unit unit in units) 
@@ -74,5 +87,11 @@ public sealed class BattleManager
 			}
 		}
 		throw new System.ArgumentNullException($"No Unit on {position}");
+	}
+
+	public void SelectUnit(Unit unit)
+	{
+		selectedUnit = unit;
+		Debug.Log(units.Contains(SelectedUnit));
 	}
 }

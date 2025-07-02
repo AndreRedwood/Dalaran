@@ -109,26 +109,6 @@ public class BattleUIManager : MonoBehaviour
 		DisplayTile(position);
 	}
 
-	public void UnitHover(Vector2Int position)
-	{
-		int height = battleManager.GetTile(position).Height;
-		Destroy(tileHover);
-		tileHover = Instantiate(tileGridPrefab);
-		tileHover.transform.position = new Vector3(position.x, (height * 0.5f) + 0.01f, position.y);
-		DisplayTile(position);
-
-		//foreach (GameObject hover in moveGrid)
-		//Destroy(hover);
-		//why? mve to actual selection
-		//moveGrid = new List<GameObject> { Instantiate(tileGridPrefab) };
-		//moveGrid[0].transform.position = new Vector3(position.x, (height * 0.5f) + 0.01f, position.y);
-	}
-
-	public void UnitUnhover()
-	{
-		Destroy(tileHover);
-	}	
-
 	public void UnitSelect(Vector2Int position)
 	{
 		selectedNameLabel.text = battleManager.GetUnit(position).Name;

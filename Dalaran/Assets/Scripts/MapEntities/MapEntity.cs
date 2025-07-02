@@ -5,14 +5,17 @@ using UnityEngine;
 public class MapEntity : MonoBehaviour
 {
 	[SerializeField]
-	protected BattleUIManager manager;
+	protected BattleUIManager managerUI;
+	[SerializeField]
+	protected BattleManager manager = BattleManager.GetInstance();
+
 	[SerializeField]
 	protected Vector2Int position;
 	public Vector2Int Position { get { return position; } }
 
 	public void SetupEntity(BattleUIManager manager, Vector2Int position)
 	{
-		this.manager = manager;
+		this.managerUI = manager;
 		this.position = position;
 		SetPosition(position);
 	}
@@ -27,18 +30,20 @@ public class MapEntity : MonoBehaviour
 	//move to unit
 	protected virtual void OnMouseEnter()
 	{
-		manager.UnitHover(position);
+		manager.GetMapTile(Position).IsHovered = true;
+		manager.GetMapTile(Position).RefreshHover();
 	}
 
 	protected virtual void OnMouseExit()
 	{
-		manager.UnitUnhover();
+		manager.GetMapTile(Position).IsHovered = false;
+		manager.GetMapTile(Position).RefreshHover();
 	}
 
 	private void OnMouseDown()
 	{
 		Debug.Log("SELECT!");
-		manager.UnitSelect(position);
+		managerUI.UnitSelect(position);
 		//Select unit and ignore its collider until unselected
 		//Display its name and some basic stats
 		//Generate movement grid from map <- function should be in unit, so it could modify move costs

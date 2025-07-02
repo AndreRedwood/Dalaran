@@ -18,6 +18,19 @@ public class MapTile : MonoBehaviour
 	private Vector2Int Position { get { return tileData.Position; } }
 	private int Height { get { return tileData.Height; } }
 
+	public bool IsHovered;
+	private bool IsEmpty { get { return manager.IsTileEmpty(Position); } }
+	//to improve, as tile may be occupied by sometning else than Unit
+	private bool IsSelected 
+	{
+		get 
+		{
+			if(manager.IsTileEmpty(Position)) return false;
+			return manager.SelectedUnit == manager.GetUnit(Position) ? true : false; 
+		} 
+	}
+	private bool isHighlighted;
+
     public void SetupTile(Vector2Int position, string type, int height = 1)
     {
 		managerUI = BattleUIManager.Instance;
@@ -36,29 +49,49 @@ public class MapTile : MonoBehaviour
 		hoverRendered.enabled = false;
 	}
 
+	public void RefreshHover()
+	{
+		if(IsHovered) 
+		{
+			if (!IsEmpty)
+			{
+				if (IsSelected)
+				{
+					hoverRendered.color = new Color32(0, 71, 171, 255);
+				}
+				else
+				{
+					hoverRendered.color = new Color32(100, 149, 237, 255);
+				}
+			}
+			else
+			{
+				hoverRendered.color = Color.white;
+			}
+			hoverRendered.enabled = true;
+		}
+		else if (IsSelected)
+		{
+			hoverRendered.color = new Color32(100, 149, 237, 255);
+			hoverRendered.enabled = true;
+		}
+		else
+		{
+			hoverRendered.enabled = false;
+		}
+	}
+
 	private void OnMouseEnter()
 	{
-		//manager.TileHover(position);
-		//checking if empty to rework
-		bool isTileEmpty = false;
-		try
-		{
-			manager.GetUnit(Position);
-		}
-		catch(System.ArgumentNullException)
-		{
-			isTileEmpty = true;
-		}
-		if(!isTileEmpty)
-		{
-			hoverRendered.color = Color.blue;
-		}
-		hoverRendered.enabled = true;
+		IsHovered = true;
+		RefreshHover();
 	}
 
 	private void OnMouseExit() 
 	{
-		hoverRendered.color = Color.white;
-		hoverRendered.enabled = false;
+		IsHovered = false;
+		RefreshHover();
+		//hoverRendered.color = Color.white;
+		//hoverRendered.enabled = false;
 	}
 }

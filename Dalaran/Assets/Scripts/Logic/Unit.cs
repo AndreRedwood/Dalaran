@@ -38,4 +38,15 @@ public class Unit : MapEntity
 		this.armor = armor;
 		this.movement[0] = this.movement[1] = movement;
 	}
+
+	private void OnMouseDown()
+	{
+		Debug.Log("SELECT!");
+		manager.SelectUnit(this);
+		manager.GetMapTile(Position).RefreshHover();
+		//Select unit and ignore its collider until unselected
+		//Display its name and some basic stats
+		//Generate movement grid from map <- function should be in unit, so it could modify move costs
+		//Move speed and check how many tiles it moved and if it can move again
+	}
 }
